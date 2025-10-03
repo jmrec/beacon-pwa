@@ -24,6 +24,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+        <head>
+            <title>Beacon</title>
+            <meta name="apple-mobile-web-app-title" content="Beacon" />
+        </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
