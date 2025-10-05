@@ -1,5 +1,5 @@
 'use client';
-import { Card, CardContent, Typography, Box, LinearProgress, Stack } from '@mui/material';
+import { Card, CardContent, Typography, Box, LinearProgress } from '@mui/material';
 import { TriangleAlert, Truck, TrendingUp, Clock } from "lucide-react";
 import { useOutages } from '@/lib/hooks/use-outages';
 import { useCrews } from '@/lib/hooks/use-crews';
