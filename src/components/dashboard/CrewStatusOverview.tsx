@@ -59,7 +59,7 @@ export default function CrewStatusOverview() {
         <Stack spacing={3}>
           {/* Crew Status List */}
           <Stack spacing={2}>
-            {crewStatuses.map((status, index) => (
+            {crewStatuses.map((status) => (
               <Box
                 key={status.status}
                 sx={{

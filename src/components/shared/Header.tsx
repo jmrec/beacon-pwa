@@ -3,27 +3,6 @@ import { useState } from 'react';
 import { AppBar, Toolbar, Typography, Box, Chip, Tabs, Tab, useMediaQuery, useTheme } from '@mui/material';
 import { Zap, Users, Settings, Truck } from "lucide-react";
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`header-tabpanel-${index}`}
-      aria-labelledby={`header-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box sx={{ py: 1 }}>{children}</Box>}
-    </div>
-  );
-}
-
 function a11yProps(index: number) {
   return {
     id: `header-tab-${index}`,

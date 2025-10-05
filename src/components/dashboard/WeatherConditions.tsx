@@ -1,6 +1,7 @@
 'use client';
 import { Card, CardContent, CardHeader, Typography, TextField, Button, Box, Chip, Stack } from '@mui/material';
 import { Cloud, Search, MapPin, Thermometer, Droplets, Wind, Eye, Sunrise, Sunset } from "lucide-react";
+import Image from 'next/image';
 
 export default function WeatherConditions() {
   const weatherData = {
@@ -130,9 +131,11 @@ export default function WeatherConditions() {
                 </Typography>
               </Box>
               <Box sx={{ textAlign: 'center' }}>
-                <img
+                <Image
                   alt={weatherData.condition}
-                  style={{ width: 80, height: 80, filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))' }}
+                  width={80}
+                  height={80}
+                  style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))' }}
                   src={weatherData.icon}
                 />
               </Box>
