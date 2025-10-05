@@ -9,7 +9,7 @@ import 'leaflet.markercluster';
 import { useMapData } from '@/lib/hooks/use-map-data';
 
 // Fix for default icon issue with Webpack
-// @ts-ignore
+// @ts-expect-error: Leaflet icon URL issue with Webpack
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
@@ -32,7 +32,7 @@ export default function LiveMap({
   const leafletMap = useRef<L.Map | null>(null);
   const markerClusterRef = useRef<L.MarkerClusterGroup | null>(null);
   
-  const { markers, viewState, setViewState, fitToMarkers, loading } = useMapData();
+  const { markers, viewState, fitToMarkers, loading } = useMapData();
 
   useEffect(() => {
     if (!mapRef.current || leafletMap.current) return;
@@ -77,7 +77,15 @@ export default function LiveMap({
               🎯 Fit View
             </button>
           `;
-          div.onclick = fitToMarkers;
+          div.onclick = () => {
+            if (leafletMap.current && markers.length > 0) {
+              const group = L.featureGroup(markers.map(m => L.marker(m.position)));
+              const bounds = group.getBounds();
+              if (bounds.isValid()) {
+                leafletMap.current.fitBounds(bounds, { padding: [20, 20] });
+              }
+            }
+          };
           return div;
         }
       });
