@@ -79,7 +79,7 @@ export default function OutagesByType() {
               </Box>
               <Chip
                 label={outage.count}
-                color={outage.count > 0 ? outage.color as any : 'default'}
+                color={outage.count > 0 ? (outage.color as 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning') : 'default'}
                 variant={outage.count > 0 ? 'filled' : 'outlined'}
                 sx={{
                   transition: 'all 0.2s ease',

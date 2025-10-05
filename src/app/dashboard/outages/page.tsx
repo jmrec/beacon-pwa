@@ -22,7 +22,7 @@ export default function OutagesPage() {
     }
   };
 
-  const getPriorityVariant = (priority: string) => {
+  const getPriorityVariant = (priority: string): 'filled' | 'outlined' => {
     return priority === 'High' ? 'filled' : 'outlined';
   };
 
@@ -106,7 +106,7 @@ export default function OutagesPage() {
                       <Chip
                         label={outage.priority}
                         color={getPriorityColor(outage.priority)}
-                        variant={getPriorityVariant(outage.priority) as any}
+                        variant={getPriorityVariant(outage.priority)}
                         size="small"
                         sx={{
                           fontWeight: 500,

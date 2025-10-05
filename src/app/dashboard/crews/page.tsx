@@ -18,7 +18,7 @@ export default function CrewsPage() {
     }
   };
 
-  const getStatusVariant = (status: string) => {
+  const getStatusVariant = (status: string): 'filled' | 'outlined' => {
     switch (status) {
       case 'Available': return 'filled';
       case 'Dispatched': return 'outlined';
@@ -83,7 +83,7 @@ export default function CrewsPage() {
                       <Chip
                         label={crew.status}
                         color={getStatusColor(crew.status)}
-                        variant={getStatusVariant(crew.status) as any}
+                        variant={getStatusVariant(crew.status)}
                         size="small"
                         sx={{
                           fontWeight: 500,
