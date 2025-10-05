@@ -122,7 +122,7 @@ export function useCrews() {
       await new Promise(resolve => setTimeout(resolve, 1000));
       setCrews([...mockCrews]); // Refresh with same data for now
       setError(null);
-    } catch (err) {
+    } catch {
       setError('Failed to refresh crews data');
     } finally {
       setLoading(false);

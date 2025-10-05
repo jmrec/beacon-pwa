@@ -134,7 +134,7 @@ export function useOutages() {
       await new Promise(resolve => setTimeout(resolve, 1000));
       setOutages([...mockOutages]); // Refresh with same data for now
       setError(null);
-    } catch (err) {
+    } catch {
       setError('Failed to refresh outages data');
     } finally {
       setLoading(false);

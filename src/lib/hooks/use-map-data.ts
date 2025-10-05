@@ -71,52 +71,56 @@ export function useMapData() {
 
   // Generate map markers from outages and crews
   useEffect(() => {
-    const outageMarkers: MapMarker[] = getOutagesForMap().map(outage => ({
-      id: outage.id,
-      type: 'outage',
-      position: outage.coordinates!,
-      title: `${outage.type} Outage`,
-      description: outage.location,
-      status: outage.status,
-      priority: outage.priority,
-      icon: getOutageIcon(outage.type),
-      color: getOutageColor(outage.priority),
-      popupContent: `
-        <div>
-          <h3>${outage.type} Outage</h3>
-          <p><strong>Location:</strong> ${outage.location}</p>
-          <p><strong>Status:</strong> ${outage.status}</p>
-          <p><strong>Priority:</strong> ${outage.priority}</p>
-          <p><strong>Affected Customers:</strong> ${outage.affectedCustomers || 'Unknown'}</p>
-          <p><strong>Reported:</strong> ${new Date(outage.reportedAt || '').toLocaleString()}</p>
-          ${outage.estimatedRestoration ? `<p><strong>Estimated Restoration:</strong> ${new Date(outage.estimatedRestoration).toLocaleString()}</p>` : ''}
-        </div>
-      `
-    }));
+    const outageMarkers: MapMarker[] = outages
+      .filter(outage => outage.coordinates)
+      .map(outage => ({
+        id: outage.id,
+        type: 'outage',
+        position: outage.coordinates!,
+        title: `${outage.type} Outage`,
+        description: outage.location,
+        status: outage.status,
+        priority: outage.priority,
+        icon: getOutageIcon(outage.type),
+        color: getOutageColor(outage.priority),
+        popupContent: `
+          <div>
+            <h3>${outage.type} Outage</h3>
+            <p><strong>Location:</strong> ${outage.location}</p>
+            <p><strong>Status:</strong> ${outage.status}</p>
+            <p><strong>Priority:</strong> ${outage.priority}</p>
+            <p><strong>Affected Customers:</strong> ${outage.affectedCustomers || 'Unknown'}</p>
+            <p><strong>Reported:</strong> ${new Date(outage.reportedAt || '').toLocaleString()}</p>
+            ${outage.estimatedRestoration ? `<p><strong>Estimated Restoration:</strong> ${new Date(outage.estimatedRestoration).toLocaleString()}</p>` : ''}
+          </div>
+        `
+      }));
 
-    const crewMarkers: MapMarker[] = getCrewsForMap().map(crew => ({
-      id: crew.id,
-      type: 'crew',
-      position: crew.coordinates!,
-      title: crew.name,
-      description: crew.currentTask,
-      status: crew.status,
-      icon: getCrewIcon(crew.status),
-      color: getCrewColor(crew.status),
-      popupContent: `
-        <div>
-          <h3>${crew.name}</h3>
-          <p><strong>Status:</strong> ${crew.status}</p>
-          <p><strong>Current Task:</strong> ${crew.currentTask}</p>
-          <p><strong>Vehicle:</strong> ${crew.vehicleType || 'Unknown'}</p>
-          <p><strong>Crew Size:</strong> ${crew.crewSize || 'Unknown'}</p>
-          <p><strong>Last Updated:</strong> ${new Date(crew.lastUpdated || '').toLocaleString()}</p>
-        </div>
-      `
-    }));
+    const crewMarkers: MapMarker[] = crews
+      .filter(crew => crew.coordinates)
+      .map(crew => ({
+        id: crew.id,
+        type: 'crew',
+        position: crew.coordinates!,
+        title: crew.name,
+        description: crew.currentTask,
+        status: crew.status,
+        icon: getCrewIcon(crew.status),
+        color: getCrewColor(crew.status),
+        popupContent: `
+          <div>
+            <h3>${crew.name}</h3>
+            <p><strong>Status:</strong> ${crew.status}</p>
+            <p><strong>Current Task:</strong> ${crew.currentTask}</p>
+            <p><strong>Vehicle:</strong> ${crew.vehicleType || 'Unknown'}</p>
+            <p><strong>Crew Size:</strong> ${crew.crewSize || 'Unknown'}</p>
+            <p><strong>Last Updated:</strong> ${new Date(crew.lastUpdated || '').toLocaleString()}</p>
+          </div>
+        `
+      }));
 
     setMarkers([...outageMarkers, ...crewMarkers]);
-  }, [outages, crews]); // Removed function dependencies since they're stable
+  }, [outages, crews]);
 
   // Fit map to show all markers
   const fitToMarkers = () => {
